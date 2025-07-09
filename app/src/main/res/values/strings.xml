@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Recetapp</string>
+    <string name="usuario">usuario</string>
+    <string name="imagen_receta">imagen_receta</string>
+    <string name="anadir_favorito">anadir_favoritos</string>
+</resources>

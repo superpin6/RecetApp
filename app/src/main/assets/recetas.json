@@ -1,0 +1,262 @@
+[
+  {
+    "id": 1,
+    "nombre": "Paella Valenciana",
+    "descripcion": "Arroz, pollo, conejo, judía verde y garrofón.",
+    "categoria": "Arroces",
+    "foto": "arroz_paella",
+    "ingredientes": [
+      "400 g de arroz",
+      "500 g de pollo",
+      "300 g de conejo",
+      "150 g de judía verde",
+      "100 g de garrofón",
+      "1 tomate",
+      "Aceite de oliva",
+      "Azafrán",
+      "Sal",
+      "Agua"
+    ],
+    "preparacion": "Sofríe el pollo y el conejo, añade la verdura, el tomate y el arroz. Incorpora el agua, el azafrán y cocina hasta que se evapore el caldo."
+  },
+  {
+    "id": 2,
+    "nombre": "Arroz a banda",
+    "descripcion": "Arroz, caldo de pescado, alioli y gambas.",
+    "categoria": "Arroces",
+    "foto": "arroz_banda",
+    "ingredientes": [
+      "400 g de arroz",
+      "1 litro de caldo de pescado",
+      "200 g de gambas",
+      "1 sepia",
+      "2 dientes de ajo",
+      "Aceite de oliva",
+      "Alioli",
+      "Sal"
+    ],
+    "preparacion": "Sofríe las gambas y la sepia, añade el arroz y el caldo caliente. Cocina a fuego medio hasta que el arroz esté tierno. Sirve con alioli."
+  },
+  {
+    "id": 3,
+    "nombre": "Risotto de setas",
+    "descripcion": "Arroz, setas, parmesano y vino blanco.",
+    "categoria": "Arroces",
+    "foto": "arroz_risotto",
+    "ingredientes": [
+      "300 g de arroz arborio",
+      "250 g de setas variadas",
+      "1 cebolla",
+      "1 diente de ajo",
+      "1 vaso de vino blanco",
+      "1 litro de caldo de verduras",
+      "50 g de parmesano",
+      "Aceite de oliva",
+      "Sal"
+    ],
+    "preparacion": "Sofríe la cebolla y el ajo, añade las setas y el arroz. Incorpora el vino y ve añadiendo caldo poco a poco hasta que el arroz esté cremoso. Termina con parmesano."
+  },
+  {
+    "id": 4,
+    "nombre": "Arroz negro",
+    "descripcion": "Arroz, tinta de calamar y marisco.",
+    "categoria": "Arroces",
+    "foto": "arroz_negro",
+    "ingredientes": [
+      "400 g de arroz",
+      "2 sobres de tinta de calamar",
+      "300 g de calamares",
+      "150 g de gambas",
+      "1 cebolla",
+      "1 pimiento verde",
+      "2 tomates",
+      "1 litro de caldo de pescado",
+      "Aceite de oliva",
+      "Sal"
+    ],
+    "preparacion": "Sofríe la cebolla, el pimiento y los calamares. Añade el arroz, los tomates, la tinta y el caldo caliente. Cocina hasta que el arroz esté en su punto."
+  },
+  {
+    "id": 5,
+    "nombre": "Arroz al horno",
+    "descripcion": "Arroz, costillas, morcilla y garbanzos.",
+    "categoria": "Arroces",
+    "foto": "arroz_horno",
+    "ingredientes": [
+      "400 g de arroz",
+      "300 g de costillas de cerdo",
+      "2 morcillas",
+      "100 g de garbanzos cocidos",
+      "2 tomates",
+      "1 cabeza de ajos",
+      "Aceite de oliva",
+      "Caldo de carne",
+      "Sal"
+    ],
+    "preparacion": "En una cazuela dora las costillas y la morcilla, añade los tomates y el arroz. Incorpora los garbanzos y el caldo. Hornea todo junto hasta que el arroz esté cocido."
+  },
+  {
+    "id": 6,
+    "nombre": "Espaguetis Carbonara",
+    "descripcion": "Espaguetis, bacon, huevo y nata.",
+    "categoria": "Pasta",
+    "foto": "pasta_carbonara",
+    "ingredientes": [
+      "400 g de espaguetis",
+      "150 g de bacon",
+      "2 huevos",
+      "100 ml de nata",
+      "50 g de parmesano",
+      "Sal",
+      "Pimienta"
+    ],
+    "preparacion": "Cuece los espaguetis. Fríe el bacon, mezcla con la nata y los huevos batidos. Añade el parmesano y mezcla con la pasta caliente fuera del fuego."
+  },
+  {
+    "id": 7,
+    "nombre": "Macarrones Boloñesa",
+    "descripcion": "Macarrones, carne picada y tomate.",
+    "categoria": "Pasta",
+    "foto": "pasta_bolonesa",
+    "ingredientes": [
+      "400 g de macarrones",
+      "300 g de carne picada",
+      "1 cebolla",
+      "2 dientes de ajo",
+      "400 g de tomate triturado",
+      "Aceite de oliva",
+      "Sal",
+      "Orégano"
+    ],
+    "preparacion": "Cuece los macarrones. Sofríe la cebolla y el ajo, añade la carne y el tomate. Cocina hasta espesar y mezcla con la pasta. Espolvorea orégano al gusto."
+  },
+  {
+    "id": 8,
+    "nombre": "Lasaña de verduras",
+    "descripcion": "Pasta, verduras y bechamel.",
+    "categoria": "Pasta",
+    "foto": "pasta_lasana",
+    "ingredientes": [
+      "12 placas de lasaña",
+      "1 calabacín",
+      "1 berenjena",
+      "1 pimiento rojo",
+      "1 cebolla",
+      "200 ml de bechamel",
+      "Aceite de oliva",
+      "Sal",
+      "Queso rallado"
+    ],
+    "preparacion": "Corta y sofríe las verduras. Monta la lasaña alternando placas y verduras, cubre con bechamel y queso rallado. Hornea hasta gratinar."
+  },
+  {
+    "id": 9,
+    "nombre": "Canelones de carne",
+    "descripcion": "Carne picada, pasta, tomate y bechamel.",
+    "categoria": "Pasta",
+    "foto": "pasta_canelones",
+    "ingredientes": [
+      "12 placas de canelones",
+      "300 g de carne picada",
+      "1 cebolla",
+      "200 ml de tomate frito",
+      "200 ml de bechamel",
+      "Aceite de oliva",
+      "Sal",
+      "Queso rallado"
+    ],
+    "preparacion": "Rellena los canelones con carne sofrita y tomate. Coloca en una fuente, cubre con bechamel y queso rallado. Hornea hasta dorar."
+  },
+  {
+    "id": 10,
+    "nombre": "Ensalada de pasta",
+    "descripcion": "Pasta, atún, maíz y tomate.",
+    "categoria": "Pasta",
+    "foto": "pasta_ensalada",
+    "ingredientes": [
+      "250 g de pasta corta",
+      "2 latas de atún",
+      "100 g de maíz dulce",
+      "2 tomates",
+      "Aceite de oliva",
+      "Vinagre",
+      "Sal"
+    ],
+    "preparacion": "Cuece la pasta y enfría. Mezcla con el atún desmenuzado, el maíz y los tomates picados. Aliña al gusto."
+  },
+  {
+    "id": 11,
+    "nombre": "Tarta de queso",
+    "descripcion": "Queso crema, huevos y azúcar.",
+    "categoria": "Postres",
+    "foto": "postre_queso",
+    "ingredientes": [
+      "400 g de queso crema",
+      "3 huevos",
+      "200 ml de nata",
+      "120 g de azúcar",
+      "100 g de galletas",
+      "50 g de mantequilla"
+    ],
+    "preparacion": "Mezcla las galletas trituradas con mantequilla y cubre el molde. Bate el queso con los huevos, nata y azúcar. Hornea la mezcla sobre la base."
+  },
+  {
+    "id": 12,
+    "nombre": "Arroz con leche",
+    "descripcion": "Arroz, leche y canela.",
+    "categoria": "Postres",
+    "foto": "postre_arroz",
+    "ingredientes": [
+      "200 g de arroz",
+      "1 litro de leche",
+      "100 g de azúcar",
+      "1 rama de canela",
+      "Piel de limón"
+    ],
+    "preparacion": "Cuece el arroz en leche con canela y piel de limón, removiendo a fuego lento. Añade azúcar al final y mezcla bien."
+  },
+  {
+    "id": 13,
+    "nombre": "Brownie de chocolate",
+    "descripcion": "Chocolate, nueces y mantequilla.",
+    "categoria": "Postres",
+    "foto": "postre_brownie",
+    "ingredientes": [
+      "200 g de chocolate",
+      "100 g de mantequilla",
+      "3 huevos",
+      "120 g de azúcar",
+      "80 g de harina",
+      "50 g de nueces"
+    ],
+    "preparacion": "Funde el chocolate con la mantequilla. Mezcla con los huevos, azúcar y harina. Añade las nueces troceadas y hornea en un molde."
+  },
+  {
+    "id": 14,
+    "nombre": "Flan de huevo",
+    "descripcion": "Huevos, leche y azúcar.",
+    "categoria": "Postres",
+    "foto": "postre_flan",
+    "ingredientes": [
+      "4 huevos",
+      "500 ml de leche",
+      "120 g de azúcar",
+      "Caramelo líquido"
+    ],
+    "preparacion": "Bate los huevos con el azúcar y la leche. Vierte en moldes caramelizados y hornea al baño maría hasta que cuaje."
+  },
+  {
+    "id": 15,
+    "nombre": "Tarta de manzana",
+    "descripcion": "Manzana, masa quebrada y azúcar.",
+    "categoria": "Postres",
+    "foto": "postre_manzana",
+    "ingredientes": [
+      "2 manzanas",
+      "1 masa quebrada",
+      "80 g de azúcar",
+      "Mermelada de albaricoque"
+    ],
+    "preparacion": "Coloca la masa en un molde, cubre con manzana laminada y azúcar. Hornea hasta dorar y pincela con mermelada."
+  }
+]
