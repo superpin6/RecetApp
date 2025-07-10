@@ -7,16 +7,18 @@ import com.universitatcarlemany.recetapp.controller.UserActivity
 import android.os.Handler
 import android.os.Looper
 
+// MainActivity used as a splash screen before starting the main UserActivity
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Puedes poner aquí un layout sencillo de splash si quieres, por ejemplo:
+        // Optionally, you can show a splash layout here
         // setContentView(R.layout.activity_splash)
 
+        // Delayed transition to UserActivity after 1 second
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, UserActivity::class.java))
             finish()
-        }, 1000) // 1000 ms = 1 segundo. Cambia el valor si quieres.
+        }, 1000) // 1000 ms = 1 second; change this value if you want a longer splash
     }
 }

@@ -40,7 +40,17 @@ class RecetarioActivity : AppCompatActivity() {
         binding = ActivityRecetarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Modern permission launcher for notifications
+        // Set up custom Toolbar and hide default title
+        setSupportActionBar(binding.toolbarRecetario)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // Handle back arrow click
+        binding.toolbarRecetario.setNavigationOnClickListener {
+            finish()
+        }
+
+        // Register launcher for notification permissions (Android 13+)
         requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
@@ -51,28 +61,28 @@ class RecetarioActivity : AppCompatActivity() {
             }
         }
 
-        // Request notification permission only on Android 13+ (API 33+)
+        // Ask for notification permission on Android 13+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permiso = Manifest.permission.POST_NOTIFICATIONS
-            if (ContextCompat.checkSelfPermission(this, permiso) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissionLauncher.launch(arrayOf(permiso))
+            val permission = Manifest.permission.POST_NOTIFICATIONS
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(arrayOf(permission))
             }
         }
 
-        // Create notification channel (only needed once)
+        // Create notification channel (if needed)
         NotificationHelper.createFavoritosChannel(this)
 
-        // Initialize Room database with fallback (destructive migration for dev only)
+        // Initialize database and DAO for favorites
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "recetapp-db"
         ).fallbackToDestructiveMigration().build()
         val favoritesDao = db.favoriteRecipeDao()
 
-        // Load recipes from assets as a mutable list
+        // Load all recipes from JSON (assets)
         recetasOriginal = cargarRecetasDesdeAssets().toMutableList()
 
-        // Set up the adapter with favorite logic and navigation
+        // Set up the adapter with favorite functionality and click listeners
         adapter = RecetaAdapter(
             recetasOriginal,
             isFavorite = { id ->
@@ -93,46 +103,52 @@ class RecetarioActivity : AppCompatActivity() {
                             true
                         }
                     }
+                    // Show notification if added to favorites
                     if (wasAdded) {
                         NotificationHelper.showFavoriteAdded(
                             context = this@RecetarioActivity,
                             recetaNombre = receta.nombre
                         )
                     }
-                    // Update only this item in the adapter for better performance
                     adapter.notifyItemChanged(position)
                 }
             },
             onRecetaClick = { receta ->
-                // Navigate to detail screen with the selected recipe's ID
+                // Open detail activity
                 val intent = Intent(this, RecetaDetalleActivity::class.java)
                 intent.putExtra("receta_id", receta.id)
                 startActivity(intent)
             }
         )
 
-        // Attach the adapter and layout manager to RecyclerView
+        // Set up RecyclerView
         binding.recyclerViewRecetas.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewRecetas.adapter = adapter
 
-        // --- Filter recipes by category using Spinner ---
+        // Filter recipes by category using Spinner
         val categorias = resources.getStringArray(R.array.categorias_array)
         binding.spinnerCategorias.setSelection(0)
         binding.spinnerCategorias.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-                val categoriaElegida = categorias[pos]
-                val filtradas = if (categoriaElegida == "Todas") {
+                val selectedCategory = categorias[pos]
+                val filteredList = if (selectedCategory == "Todas") {
                     recetasOriginal
                 } else {
-                    recetasOriginal.filter { it.categoria.equals(categoriaElegida, ignoreCase = true) }
+                    recetasOriginal.filter { it.categoria.equals(selectedCategory, ignoreCase = true) }
                 }
-                adapter.updateData(filtradas)
+                adapter.updateData(filteredList)
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
-    // Converts Receta (model) to FavoriteRecipeEntity for Room
+    // Enable navigation back with ActionBar's arrow
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
+    // Extension function: Convert Receta to FavoriteRecipeEntity for Room
     private fun Receta.toEntity() = FavoriteRecipeEntity(
         id = this.id,
         nombre = this.nombre,
@@ -143,14 +159,14 @@ class RecetarioActivity : AppCompatActivity() {
         preparacion = this.preparacion
     )
 
-    // Load recipes from a JSON file in assets
+    // Load recipes from assets/recetas.json
     private fun cargarRecetasDesdeAssets(): List<Receta> {
         return try {
             val json = assets.open("recetas.json")
                 .bufferedReader()
                 .use { it.readText() }
-            val tipoLista = object : TypeToken<List<Receta>>() {}.type
-            Gson().fromJson(json, tipoLista)
+            val listType = object : TypeToken<List<Receta>>() {}.type
+            Gson().fromJson(json, listType)
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()

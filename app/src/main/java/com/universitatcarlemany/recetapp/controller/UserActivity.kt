@@ -7,28 +7,30 @@ import com.universitatcarlemany.recetapp.databinding.ActivityUserBinding
 
 class UserActivity : AppCompatActivity() {
 
+    // ViewBinding for accessing layout views safely
     private lateinit var binding: ActivityUserBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Inflate the layout using ViewBinding
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Ocultar el título por defecto del ActionBar para dejar solo el personalizado
+        // Hide the default ActionBar title to use the custom Toolbar title
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        // Botón para ver el recetario
+        // Open RecetarioActivity when the "Recetario" button is clicked
         binding.btnRecetario.setOnClickListener {
             startActivity(Intent(this, RecetarioActivity::class.java))
         }
 
-        // Botón para favoritos
+        // Open FavoritesActivity when the "Favoritos" button is clicked
         binding.btnFavoritos.setOnClickListener {
             startActivity(Intent(this, FavoritesActivity::class.java))
         }
 
-        // Icono usuario (arriba derecha)
+        // Open DatosPrivadosActivity when the user icon is clicked
         binding.imgUserIcon.setOnClickListener {
             startActivity(Intent(this, DatosPrivadosActivity::class.java))
         }

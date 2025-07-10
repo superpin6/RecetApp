@@ -3,4 +3,6 @@
     <string name="usuario">usuario</string>
     <string name="imagen_receta">imagen_receta</string>
     <string name="anadir_favorito">anadir_favoritos</string>
+    <string name="recetario">recetario\n</string>
+    <string name="Recetario">Recetario</string>
 </resources>

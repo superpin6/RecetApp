@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff4e4"
+    android:gravity="center_horizontal">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:title=""
+        app:titleTextColor="@android:color/white">
+
+        <TextView
+            android:id="@+id/tvToolbarTitlePerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Perfil"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
 
     <ImageView
         android:id="@+id/imgFotoPerfil"
@@ -19,7 +47,7 @@
         android:id="@+id/txtNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre: Julio López"
+        android:text="Nombre: Alumnos Uni"
         android:textSize="18sp"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"/>
@@ -28,8 +56,23 @@
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email: ejemplo@correo.com"
+        android:text="Email: alumno@RecetApp.com"
         android:textSize="16sp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="36dp" />
+
+    <ImageView
+        android:id="@+id/imgChefGato"
+        android:layout_width="640dp"
+        android:layout_height="560dp"
+        android:layout_gravity="center"
+        android:src="@drawable/gato_cocinero_pescado2"
+        android:contentDescription="Gato cocinero preparando pescado"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="16dp"/>
+
 </LinearLayout>
