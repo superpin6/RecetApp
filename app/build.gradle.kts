@@ -78,13 +78,13 @@ dependencies {
     // Glide
     implementation(libs.glide)
 
-    // Otros UI
+    // Other UI
     implementation(libs.recyclerview)
     implementation(libs.material)
-    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation(libs.androidx.appcompat) // AppCompat for backward-compatible activities
+    implementation (libs.gson)
 
-
-    // Ciclo de vida
+    // Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 

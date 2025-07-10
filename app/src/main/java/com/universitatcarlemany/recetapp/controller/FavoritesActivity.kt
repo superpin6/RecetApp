@@ -25,12 +25,11 @@ class FavoritesActivity : AppCompatActivity() {
         binding = ActivityFavoritesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inicializa Room con fallbackToDestructiveMigration
+        // Initialize Room with fallback (safe for dev)
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "recetapp-db"
-        ).fallbackToDestructiveMigration()
-            .build()
+        ).fallbackToDestructiveMigration().build()
         val favoritesDao = db.favoriteRecipeDao()
 
         lifecycleScope.launch {
@@ -41,21 +40,22 @@ class FavoritesActivity : AppCompatActivity() {
 
             adapter = RecetaAdapter(
                 favoritos,
-                isFavorite = { true }, // Todo lo mostrado aquí es favorito
-                onToggleFavorite = { receta ->
+                isFavorite = { true }, // All displayed here are favorite
+                onToggleFavorite = { receta, position ->
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             favoritesDao.delete(receta.toFavoriteEntity())
                         }
-                        // Recarga la lista después de borrar
+                        // Reload favorites after removal
                         val nuevosFavoritos = withContext(Dispatchers.IO) {
                             favoritesDao.getAll().map { it.toReceta() }
                         }
                         adapter.updateData(nuevosFavoritos)
+                        // Optionally, you could notify only this item (if deleted, just reload all)
                     }
                 },
                 onRecetaClick = { receta ->
-                    // Abre la pantalla de detalle con la receta seleccionada
+                    // Open detail screen for selected recipe
                     val intent = Intent(this@FavoritesActivity, RecetaDetalleActivity::class.java)
                     intent.putExtra("receta_id", receta.id)
                     startActivity(intent)
@@ -67,7 +67,7 @@ class FavoritesActivity : AppCompatActivity() {
         }
     }
 
-    // Extensiones para conversión
+    // Extension: FavoriteRecipeEntity -> Receta
     private fun FavoriteRecipeEntity.toReceta() = Receta(
         id = this.id,
         nombre = this.nombre,
@@ -78,6 +78,7 @@ class FavoritesActivity : AppCompatActivity() {
         preparacion = this.preparacion
     )
 
+    // Extension: Receta -> FavoriteRecipeEntity
     private fun Receta.toFavoriteEntity() = FavoriteRecipeEntity(
         id = this.id,
         nombre = this.nombre,

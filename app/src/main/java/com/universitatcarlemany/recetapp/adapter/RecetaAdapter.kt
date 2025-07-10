@@ -17,8 +17,8 @@ import kotlinx.coroutines.launch
 class RecetaAdapter(
     private var recetas: List<Receta>,
     private val isFavorite: suspend (Int) -> Boolean,
-    private val onToggleFavorite: suspend (Receta) -> Unit,
-    private val onRecetaClick: (Receta) -> Unit // <-- NUEVO parámetro para el click
+    private val onToggleFavorite: suspend (Receta, Int) -> Unit, // Passes the position!
+    private val onRecetaClick: (Receta) -> Unit
 ) : RecyclerView.Adapter<RecetaAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,14 +43,16 @@ class RecetaAdapter(
         holder.txtDescripcion.text = receta.descripcion
         holder.txtCategoria.text = receta.categoria
 
-        // Imagen desde drawable
+        // Load image from drawable by name (if not found, use default)
         val context = holder.itemView.context
         val fotoResId = context.resources.getIdentifier(
-            receta.foto, "drawable", context.packageName)
+            receta.foto, "drawable", context.packageName
+        )
         holder.imgFoto.setImageResource(
             if (fotoResId != 0) fotoResId else R.drawable.ic_launcher_background
         )
 
+        // Set favorite star async (Room check is suspend)
         CoroutineScope(Dispatchers.Main).launch {
             val favorito = isFavorite(receta.id)
             holder.btnFavorito.text = if (favorito) "★" else "☆"
@@ -59,20 +61,21 @@ class RecetaAdapter(
             )
         }
 
+        // Only this star will refresh!
         holder.btnFavorito.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-                onToggleFavorite(receta)
+                onToggleFavorite(receta, position)
                 notifyItemChanged(position)
             }
         }
 
-        // Click en toda la tarjeta para navegar al detalle
+        // Open recipe details on card click
         holder.itemView.setOnClickListener {
             onRecetaClick(receta)
         }
     }
 
-    // Permite actualizar la lista desde fuera
+    // Update the list from outside
     fun updateData(newRecetas: List<Receta>) {
         this.recetas = newRecetas
         notifyDataSetChanged()

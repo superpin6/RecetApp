@@ -4,107 +4,131 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF8E7">   <!-- Fondo pastel -->
+    android:background="#FFF7EC"
 
-    <!-- Toolbar personalizada -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        app:title=""
-        app:titleTextColor="@android:color/white">
+    >
 
-        <TextView
-            android:id="@+id/tvToolbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="RecetApp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            />
+    <!-- Custom Toolbar -->
+<androidx.appcompat.widget.Toolbar
+android:id="@+id/toolbar"
+android:layout_width="match_parent"
+android:layout_height="?attr/actionBarSize"
+android:background="?attr/colorPrimary"
+android:elevation="4dp"
+app:title=""
+app:titleTextColor="@android:color/white">
 
-        <ImageView
-            android:id="@+id/imgUserIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="end|center_vertical"
-            android:src="@drawable/ic_person"
-            android:contentDescription="Usuario"
-            android:padding="8dp"
-            android:background="@drawable/circle_bg"/>
-    </androidx.appcompat.widget.Toolbar>
+<TextView
+    android:id="@+id/tvToolbarTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:text="RecetApp"
+    android:textStyle="bold"
+    android:textColor="@android:color/white"
+    android:textSize="20sp"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="32dp" />
+<ImageView
+    android:id="@+id/imgUserIcon"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_gravity="end|center_vertical"
+    android:src="@drawable/ic_person"
+    android:contentDescription="Usuario"
+    android:padding="8dp"
+    android:background="@drawable/circle_bg"/>
+</androidx.appcompat.widget.Toolbar>
 
-    <!-- Botón Ver Recetario con icono -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        android:background="@drawable/rounded_button"
-        android:gravity="center_vertical"
-        android:padding="0dp">
+    <!-- Space -->
+<Space
+android:layout_width="match_parent"
+android:layout_height="24dp" />
 
-        <Button
-            android:id="@+id/btnRecetario"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="VER RECETARIO"
-            android:textColor="#3D155F"
-            android:textStyle="bold"/>
+    <!-- Recetario Button -->
+<LinearLayout
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginStart="32dp"
+android:layout_marginEnd="32dp"
+android:layout_marginBottom="16dp"
+android:background="#D1B6E1"
+android:gravity="center"
+android:padding="6dp"
+android:layout_marginTop="8dp"
+android:clipToPadding="false"
+android:backgroundTint="@null"
+android:elevation="2dp"
+android:layout_gravity="center"
+android:radius="12dp">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_libro_recetas"
-            android:contentDescription="Recetario"/>
-    </LinearLayout>
+<Button
+    android:id="@+id/btnRecetario"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="VER RECETARIO"
+    android:background="@android:color/transparent"
+    android:textColor="@android:color/black"
+    android:textStyle="bold"/>
 
-    <!-- Botón Favoritos con icono -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:orientation="horizontal"
-        android:background="@drawable/rounded_button"
-        android:gravity="center_vertical"
-        android:padding="0dp"
-        android:layout_marginBottom="0dp">
-
-        <Button
-            android:id="@+id/btnFavoritos"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="FAVORITOS"
-            android:textColor="#3D155F"
-            android:textStyle="bold"/>
-
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_estrella_favorito"
-            android:contentDescription="Favoritos"/>
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
+<ImageView
+    android:id="@+id/icLibro"
+    android:layout_width="28dp"
+    android:layout_height="28dp"
+    android:src="@drawable/ic_libro_recetas"
+    android:contentDescription="Libros"
+    android:layout_marginStart="8dp"/>
 </LinearLayout>
+
+    <!-- Favoritos Button -->
+<LinearLayout
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginStart="32dp"
+android:layout_marginEnd="32dp"
+android:background="#D1B6E1"
+android:gravity="center"
+android:padding="6dp"
+android:clipToPadding="false"
+android:backgroundTint="@null"
+android:elevation="2dp"
+android:layout_gravity="center"
+android:radius="12dp">
+
+<Button
+    android:id="@+id/btnFavoritos"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="FAVORITOS"
+    android:background="@android:color/transparent"
+    android:textColor="@android:color/black"
+    android:textStyle="bold" />
+
+<ImageView
+    android:id="@+id/icEstrella"
+    android:layout_width="28dp"
+    android:layout_height="28dp"
+    android:src="@drawable/ic_estrella_favorito"
+    android:contentDescription="Favoritos"
+    android:layout_marginStart="8dp"/>
+</LinearLayout>
+
+    <!-- Main representative image for Recetario (fills remaining space) -->
+<ImageView
+android:id="@+id/imgRecetario"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_weight="1"
+android:src="@drawable/recetario_representativo"
+    android:scaleType="fitCenter"
+    android:contentDescription="Recetario illustration"
+    android:layout_margin="24dp"
+    />
+
+    </LinearLayout>

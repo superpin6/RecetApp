@@ -7,8 +7,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,31 +33,46 @@ class RecetarioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecetarioBinding
     private lateinit var adapter: RecetaAdapter
     private lateinit var recetasOriginal: MutableList<Receta>
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecetarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Pedir permiso de notificaciones SOLO en Android 13+ (API 33+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permiso = Manifest.permission.POST_NOTIFICATIONS
-            if (ContextCompat.checkSelfPermission(this, permiso) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(permiso), 1001)
+        // Modern permission launcher for notifications
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            if (permissions.entries.all { it.value }) {
+                Toast.makeText(this, "Notification permission granted.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Notification permission denied.", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Inicializa la base de datos Room (ahora con fallbackToDestructiveMigration)
+        // Request notification permission only on Android 13+ (API 33+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permiso = Manifest.permission.POST_NOTIFICATIONS
+            if (ContextCompat.checkSelfPermission(this, permiso) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(arrayOf(permiso))
+            }
+        }
+
+        // Create notification channel (only needed once)
+        NotificationHelper.createFavoritosChannel(this)
+
+        // Initialize Room database with fallback (destructive migration for dev only)
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "recetapp-db"
-        ).fallbackToDestructiveMigration()
-            .build()
+        ).fallbackToDestructiveMigration().build()
         val favoritesDao = db.favoriteRecipeDao()
 
-        // Carga las recetas del JSON como lista mutable
+        // Load recipes from assets as a mutable list
         recetasOriginal = cargarRecetasDesdeAssets().toMutableList()
 
+        // Set up the adapter with favorite logic and navigation
         adapter = RecetaAdapter(
             recetasOriginal,
             isFavorite = { id ->
@@ -63,7 +80,7 @@ class RecetarioActivity : AppCompatActivity() {
                     favoritesDao.getById(id) != null
                 }
             },
-            onToggleFavorite = { receta ->
+            onToggleFavorite = { receta, position ->
                 lifecycleScope.launch {
                     val wasAdded = withContext(Dispatchers.IO) {
                         val entity = receta.toEntity()
@@ -73,7 +90,7 @@ class RecetarioActivity : AppCompatActivity() {
                             false
                         } else {
                             favoritesDao.insert(entity)
-                            true // Solo aquí devolvemos true (cuando se añade)
+                            true
                         }
                     }
                     if (wasAdded) {
@@ -82,28 +99,30 @@ class RecetarioActivity : AppCompatActivity() {
                             recetaNombre = receta.nombre
                         )
                     }
-                    adapter.notifyDataSetChanged()
+                    // Update only this item in the adapter for better performance
+                    adapter.notifyItemChanged(position)
                 }
             },
             onRecetaClick = { receta ->
-                // Llama al detalle, pasando el ID de la receta seleccionada
+                // Navigate to detail screen with the selected recipe's ID
                 val intent = Intent(this, RecetaDetalleActivity::class.java)
                 intent.putExtra("receta_id", receta.id)
                 startActivity(intent)
             }
         )
 
+        // Attach the adapter and layout manager to RecyclerView
         binding.recyclerViewRecetas.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewRecetas.adapter = adapter
 
-        // --- Filtrado por categoría con Spinner ---
+        // --- Filter recipes by category using Spinner ---
         val categorias = resources.getStringArray(R.array.categorias_array)
         binding.spinnerCategorias.setSelection(0)
         binding.spinnerCategorias.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 val categoriaElegida = categorias[pos]
                 val filtradas = if (categoriaElegida == "Todas") {
-                    recetasOriginal // muestra todas
+                    recetasOriginal
                 } else {
                     recetasOriginal.filter { it.categoria.equals(categoriaElegida, ignoreCase = true) }
                 }
@@ -113,7 +132,7 @@ class RecetarioActivity : AppCompatActivity() {
         }
     }
 
-    // Conversión de modelo de JSON a Entity de Room
+    // Converts Receta (model) to FavoriteRecipeEntity for Room
     private fun Receta.toEntity() = FavoriteRecipeEntity(
         id = this.id,
         nombre = this.nombre,
@@ -124,7 +143,7 @@ class RecetarioActivity : AppCompatActivity() {
         preparacion = this.preparacion
     )
 
-    // Cargar recetas desde JSON en assets
+    // Load recipes from a JSON file in assets
     private fun cargarRecetasDesdeAssets(): List<Receta> {
         return try {
             val json = assets.open("recetas.json")
