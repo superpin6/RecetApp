@@ -51,15 +51,16 @@ class RecetaAdapter(
         holder.imgFoto.setImageResource(
             if (fotoResId != 0) fotoResId else R.drawable.ic_launcher_background
         )
-
         // Set favorite star async (Room check is suspend)
         CoroutineScope(Dispatchers.Main).launch {
-            val favorito = isFavorite(receta.id)
+
+            val favorito = isFavorite(receta.id)     //
             holder.btnFavorito.text = if (favorito) "★" else "☆"
             holder.btnFavorito.setTextColor(
                 if (favorito) Color.parseColor("#FFA000") else Color.parseColor("#BBBBBB")
             )
         }
+
 
         // Only this star will refresh!
         holder.btnFavorito.setOnClickListener {
@@ -75,7 +76,7 @@ class RecetaAdapter(
         }
     }
 
-    // Update the list from outside
+    // Replace the current recipe list with a new one from an external source
     fun updateData(newRecetas: List<Receta>) {
         this.recetas = newRecetas
         notifyDataSetChanged()

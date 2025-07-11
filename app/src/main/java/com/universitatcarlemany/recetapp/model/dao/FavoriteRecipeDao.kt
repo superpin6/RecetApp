@@ -18,7 +18,7 @@ interface FavoriteRecipeDao {
     @Delete
     suspend fun delete(recipe: FavoriteRecipeEntity)
 
-    // Get a favorite recipe by its ID
-    @Query("SELECT * FROM FavoriteRecipeEntity WHERE id = :id LIMIT 1")
+    // Get a favorite recipe by its ID.
+    @Query("SELECT * FROM FavoriteRecipeEntity WHERE id = :id LIMIT 1")                     //
     suspend fun getById(id: Int): FavoriteRecipeEntity?
 }

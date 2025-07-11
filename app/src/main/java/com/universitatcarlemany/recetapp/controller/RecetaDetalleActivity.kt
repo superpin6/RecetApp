@@ -15,7 +15,7 @@ class RecetaDetalleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receta_detalle)
 
-        // Get recipe ID passed from the previous activity
+        // Get recipe ID passed from the previous activity.
         val recetaId = intent.getIntExtra("receta_id", -1)
 
         // Load recipes from JSON and find the selected one by ID
@@ -24,7 +24,7 @@ class RecetaDetalleActivity : AppCompatActivity() {
         receta?.let {
             // Set recipe name, category and description
             findViewById<TextView>(R.id.txtDetalleNombre).text = it.nombre
-            findViewById<TextView>(R.id.txtDetalleCategoria).text = it.categoria
+            findViewById<TextView>(R.id.txtDetalleCategoria).text = it.categoria      //
             findViewById<TextView>(R.id.txtDetalleDescripcion).text = it.descripcion
 
             // Show ingredients as bullet points

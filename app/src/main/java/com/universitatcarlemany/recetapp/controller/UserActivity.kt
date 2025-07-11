@@ -16,13 +16,13 @@ class UserActivity : AppCompatActivity() {
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Hide the default ActionBar title to use the custom Toolbar title
+        // Hide the default ActionBar title to use the custom Toolbar title.
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // Open RecetarioActivity when the "Recetario" button is clicked
         binding.btnRecetario.setOnClickListener {
-            startActivity(Intent(this, RecetarioActivity::class.java))
+            startActivity(Intent(this, RecetarioActivity::class.java))    //
         }
 
         // Open FavoritesActivity when the "Favoritos" button is clicked

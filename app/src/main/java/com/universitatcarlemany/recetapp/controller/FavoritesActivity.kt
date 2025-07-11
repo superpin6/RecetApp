@@ -46,7 +46,7 @@ class FavoritesActivity : AppCompatActivity() {
                         withContext(Dispatchers.IO) {
                             favoritesDao.delete(receta.toFavoriteEntity())
                         }
-                        // Reload favorites after removal
+                        // Reload favorites after removal.
                         val nuevosFavoritos = withContext(Dispatchers.IO) {
                             favoritesDao.getAll().map { it.toReceta() }
                         }
@@ -67,7 +67,7 @@ class FavoritesActivity : AppCompatActivity() {
         }
     }
 
-    // Extension: FavoriteRecipeEntity -> Receta
+    // Conversion function: transforms FavoriteRecipeEntity into a Receta
     private fun FavoriteRecipeEntity.toReceta() = Receta(
         id = this.id,
         nombre = this.nombre,
@@ -78,7 +78,7 @@ class FavoritesActivity : AppCompatActivity() {
         preparacion = this.preparacion
     )
 
-    // Extension: Receta -> FavoriteRecipeEntity
+    // Extension: Receta -> FavoriteRecipeEntity.
     private fun Receta.toFavoriteEntity() = FavoriteRecipeEntity(
         id = this.id,
         nombre = this.nombre,
